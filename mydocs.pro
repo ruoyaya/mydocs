@@ -4,9 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webenginewidgets webchannel
+QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+QT += webenginewidgets webchannel sql
+
 
 TARGET = mydocs
 TEMPLATE = app
@@ -27,14 +30,18 @@ CONFIG += sdk_no_version_check
 
 SOURCES += \
         categorywidget.cpp \
+        database.cpp \
         document.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        model/doccategory.cpp
 
 HEADERS += \
         categorywidget.hpp \
+        database.hpp \
         document.hpp \
-        mainwindow.hpp
+        mainwindow.hpp \
+        model/doccategory.hpp
 
 FORMS += \
         mainwindow.ui

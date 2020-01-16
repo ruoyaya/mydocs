@@ -3,18 +3,34 @@
 <meta charset="utf-8">
 <head>
   <link rel="stylesheet" type="text/css" href="3rdparty/markdown.css">
-  <script src="3rdparty/marked.js"></script>
+  <link rel="stylesheet" type="text/css" href="3rdparty/highlight-default.css">
+  <script src="3rdparty/markdown-it.min.js"></script>
+  <script src="3rdparty/highlight.pack.js"></script>
   <script src="qrc:/qtwebchannel/qwebchannel.js"></script>
 </head>
 <body>
-  <div id="placeholder"></div>
+  <div id="placeholder" class="markdown-body"></div>
   <script>
   'use strict';
+
+  hljs.initHighlightingOnLoad();
+  window.mdHtml = window.markdownit('commonmark');
+  window.mdHtml.set({ html: true, breaks: true, linkify: true, typographer: true,
+    highlight: function (str, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(lang, str).value;
+        } catch (__) {}
+      }
+
+      return ''; // 使用额外的默认转义
+    }
+})
 
   var placeholder = document.getElementById('placeholder');
 
   var updateText = function(text) {
-      placeholder.innerHTML = marked(text);
+      placeholder.innerHTML = window.mdHtml.render(text);;
   }
 
   new QWebChannel(qt.webChannelTransport,

@@ -15,8 +15,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->contentSplitter->setStretchFactor(0, 1);
     ui->contentSplitter->setStretchFactor(1, 1);
+    ui->editor->hide();
 
-    ui->preview->setContextMenuPolicy(Qt::NoContextMenu);
+//    ui->preview->setContextMenuPolicy(Qt::NoContextMenu);
 
     QWebEnginePage *page = new QWebEnginePage(this);
     ui->preview->setPage(page);
@@ -30,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->preview->setUrl(QUrl("qrc:/index.html"));
 
+    readCategories();
+
+    /*
     QFile defaultTextFile(":/default.md");
     defaultTextFile.open(QIODevice::ReadOnly);
     ui->editor->setPlainText(defaultTextFile.readAll());
@@ -60,9 +64,37 @@ MainWindow::MainWindow(QWidget *parent) :
     QTreeWidgetItem *item2_1 = new QTreeWidgetItem(item2);
     item2_1->setText(0,"222_222");
     item2_1->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+
+    */
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::readCategories(){
+    QList<QString> parent;
+    parent << "111";
+    parent << "222";
+    parent << "333";
+    parent << "444";
+    parent << "555";
+
+    //id name date parentId path
+
+    if(parent.size() > 0) {
+        QTreeWidget* catalogTree = ui->catalogTreeWidget;
+        for (QList<QString>::iterator i = parent.begin(); i != parent.end(); ++i) {
+            QTreeWidgetItem *item = new QTreeWidgetItem(catalogTree);
+            item->setText(0, *i);
+            item->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
+        }
+    }
+
+}
+
+void MainWindow::on_markdownEditButton_clicked()
+{
+    ui->editor->setVisible(!ui->editor->isVisible());
 }

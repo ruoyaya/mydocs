@@ -15,6 +15,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void readCategories();
+protected:
+    void contextMenuEvent(QContextMenuEvent *event);
+private slots:
+    void on_markdownEditButton_clicked();
 
 private:
     Ui::MainWindow *ui;

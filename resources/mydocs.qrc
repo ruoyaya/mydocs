@@ -4,5 +4,8 @@
         <file>3rdparty/marked.js</file>
         <file>default.md</file>
         <file>index.html</file>
+        <file>3rdparty/markdown-it.min.js</file>
+        <file>3rdparty/highlight-default.css</file>
+        <file>3rdparty/highlight.pack.js</file>
     </qresource>
 </RCC>
